@@ -7,7 +7,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>AFD</title>
+	<title>Evaluar AFD</title>
 	<!-- Bootstrap CSS -->
 	<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
 	<style type="text/css">
@@ -43,8 +43,6 @@
     
     
     <p>Imrimir resultado en otra ventana</p><br>
-    
-    <p>Leer input  the un text input para evaluar</p><br>		
     	<div class="jumbotron">
   			<div class="container">
 	            
@@ -63,10 +61,10 @@
             
             	
             <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-            	<input type="text" id="stringEvaluar" id="input" class="form-control" placeholder="Escribe el string a Evaluar" required="required">	
+            	<input type="text" id="stringEvaluar" id="input" class="form-control" placeholder="Escribe el string a Evaluar" onchange="makeEvaluation()" required="required">	
             </div>
             <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-            	<button type="button" class="btn btn-info" onchange="">Evaluar</button>
+            	<button type="button" class="btn btn-info btn-block" onchange="makeEvaluation()">Evaluar</button>
             </div>
             	
             

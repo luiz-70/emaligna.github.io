@@ -13,7 +13,14 @@
 	 //returns an int indicating index of char, or -1 if invalid char is given
 
 
-
+	 //test: ejemplo de entrada de la profe. 
+	 /*   0,1
+	  *   0-1&0
+	  *   1-1&2
+	  *   *2-2&2
+	  */
+	  //variables a construir
+	 
 
 	 function symbol(m, c){
 		return m.indexOf(c);
@@ -43,8 +50,14 @@
 			console.log("transition says: "+transition(a,m,n,curState,s.charAt(i)));
 			curState=transition(a,m,n,curState,s.charAt(i));
 		}
-		if(f.indexOf(n[curState])!=-1) return true;
-		else return false;
+		if(f.indexOf(n[curState])!=-1){
+			alert('Cadena Aceptada :)')
+			return true;
+		} 
+		else{
+			alert('Cadena no Aceptada :(')
+			return false;	
+		} 
 	 }
 
 
@@ -72,20 +85,23 @@
 	 	return TheDocument;
 	 }
 
+	 function makeEvaluation(){
+	 	var s = document.getElementById('stringEvaluar').value;
+	 	console.log(s)
+	 	var n=['0','1','2'];
+		var m=['0','1'];
+		var f=['2'];
+		var a=[['1','0'],['1','2'],['2','2']];
+		var q0='0';
+	 	console.log(eval(a,n,m,q0,f,s))
+	 }
+
 	 validateBrowserForFileUpload();
 
-	 //test: ejemplo de entrada de la profe. 
-	 /*   0,1
-	  *   0-1&0
-	  *   1-1&2
-	  *   *2-2&2
-	  */
-	  //variables a construir
-	 var n=['0','1','2'];
-	 var m=['0','1'];
-	 var f=['2'];
-	 var a=[['1','0'],['1','2'],['2','2']];
-	 var q0='0';
+	 
 	 //string a evaluar
-	 var s="0000001001";
-	 console.log(eval(a,n,m,q0,f,s));
+	 //var s="0000001001";
+	 
+	 //console.log(eval(a,n,m,q0,f,s));
+
+
