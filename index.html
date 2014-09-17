@@ -37,6 +37,45 @@
 	
   </head>
   <body>
+  use this one for now..
+  /////////
+  <input type="file" id="fileinput" />
+<script type="text/javascript">
+  function readSingleFile(evt) {
+    //Retrieve the first (and only!) File from the FileList object.
+    var fl = evt.target.files[0]; 
+
+    if (fl) {
+      var r = new FileReader();
+      r.onload = function(e) { 
+	      var contents = e.target.result;
+		  console.log("Content:\n"+contents);
+		  parse(contents);
+		  //fl.type= "Atomata Finito Determinista";
+        alert( "Got the file. \n" 
+              +"name: " + fl.name + "\n"
+              +"type: " + (fl.type? fl.type : fl.name.split('.')[1]=="afd"? "Automata": "undefined") + "\n"
+              +"size: " + fl.size + " bytes"+"\n"
+              + "starts with: " + contents.substr(0, contents.indexOf("\n"))
+        );  
+      }
+      r.readAsText(fl);
+    } else { 
+      alert("Failed to load file");
+    }
+  }
+
+  document.getElementById('fileinput').addEventListener('change', readSingleFile, false);
+</script>
+  
+  ////////
+  
+  
+  
+  
+  
+  
+  
   	<div class="container">  		
 	
     
@@ -50,6 +89,7 @@
 	                <span class="input-group-btn">
 	                    <span class="btn btn-primary btn-file">
 	                        Examinar&hellip; <input accept=".afd" type="file">
+							
 	                    </span>
 	                </span>
 	                <input type="text" class="form-control" readonly>
