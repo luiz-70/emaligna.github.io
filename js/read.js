@@ -71,13 +71,19 @@
 	      parse(contents);
 	      
 	      //fl.type= "Atomata Finito Determinista";
-	      	console.log(fl.name)
+	      	console.log(fl)
+	      	
+
 	      	var fileName = fl.name;
 	        //alert( "El archivo se cargó de manera correcta \n" 
 	        //    	+"Nombre: " + fl.name + "\n"
 	        //	  	+"type: " + (fl.type? fl.type : fl.name.split('.')[1]=="afd"? "Automata": "undefined") + "\n"
-	        //    	+"size: " + fl.size + " bytes"+"\n")
-	        
+	        //    	+"size: " + fl.size + " bytes"+"\n"+
+	        //    	+ "starts with: " + contents.substr(0, contents.indexOf("\n")))
+
+	        var alfabeto = contents.substr(0, contents.indexOf("\n"));
+	        console.log(alfabeto)
+	        document.getElementById('alfabeto').innerHTML = "<br><div class='alert alert-info'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button><strong>Alfabeto: </strong>"+alfabeto+"</div>";
 	        document.getElementById('whereIsTheFile').value = fileName;
 	      }
 	      r.readAsText(fl);
