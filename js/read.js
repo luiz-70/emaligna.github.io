@@ -36,7 +36,7 @@
 		for(var i=1;i<lines.length;i++){
 			//add states, if it has * add it to the final stage array aswell
 			if(lines[i].charAt(0)=='*'){
-				fg.push(lines[i].charAt(1));
+				fg.push(parseInt(lines[i].charAt(1)));
 				ng.push(lines[i].charAt(1))
 			}
 			else{
@@ -149,40 +149,32 @@
 	}
 	//
 	
-
+	var cadena;
 	 function makeEvaluation(){
-		var s = document.getElementById('stringEvaluar').value;
-		console.log("Evaluating: "+s);
-		var n=['0','1','2'];
-		var m=['0','1'];
-		var f=['2'];
-		var a=[['1','0'],['1','2'],['2','2']];
-		var q0='0';
-		//console.log("Evaluando con el string "+s);
-		//Testing
-		//console.log("a: "+a);
-		//console.log(ag);
-		//console.log(a);
-		//porque chingados no son iguales???? Si se ven iguales!!
-		//console.log(a==ag);
-		//console.log("n: "+n);
-		//console.log(n==ng);
-		//console.log(n);
-		//console.log("m: "+m);
-		//console.log(m);
-		//console.log(m==mg);
-		//console.log("q0: "+q0);
-		//console.log(q0);
-		//solo q0 es considerado igual, el unico no arreglo. Deberia de funcionar de todas formas, los valores si son iguales.
-		//console.log(q0==q0g)
-		//console.log("f: "+f);
-		//console.log(f);
-		//console.log(f==fg);
-		//s="010010";
-		//console.log(eval(a,n,m,q0,f,s))
-		console.log(eval(ag,ng,mg,q0g,fg,s))
+		cadena = document.getElementById('stringEvaluar').value;
+		console.log("Evaluating: "+cadena);
+		evaluar(cadena.split(""),0,0)
+		
+		//console.log(eval(ag,ng,mg,q0g,fg,s))
 	}
-
+	function evaluar(c,i,e){
+		if(c.length==i){
+			if(fg.lastIndexOf(parseInt(e))>=0){
+				var success = "<br><div class='alert alert-success'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>La cadena <strong>"+c.join("")+"</strong> es aceptada</div>";
+				document.getElementById("placeAlert").innerHTML = success;
+			}else{
+				var danger = "<br><div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>La cadena <strong>"+c.join("")+"</strong> no es aceptada</div>";
+				document.getElementById("placeAlert").innerHTML = danger;
+			}
+		}else{
+		console.log("ELEMENTO NO.  "+i);
+		console.log("cadena: "+c.join(""));
+		console.log("elemento:"+c[i])
+		console.log("est-actual:"+e);
+		console.log("est-siguente:"+ag[parseInt(e)][parseInt(c[i])]);
+			evaluar(c,i+1,ag[parseInt(e)][parseInt(c[i])]);
+		}
+	}
 	validateBrowserForFileUpload();
 
 	 
@@ -195,5 +187,4 @@
 	 //var s="0000001001";
 	 
 	 //console.log(eval(a,n,m,q0,f,s));
-
 
