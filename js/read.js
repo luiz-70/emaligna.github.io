@@ -73,10 +73,10 @@
 	      //fl.type= "Atomata Finito Determinista";
 	      	console.log(fl.name)
 	      	var fileName = fl.name;
-	        alert( "El archivo se cargó de manera correcta \n" 
-	            	+"Nombre: " + fl.name + "\n"
-	        	  	+"type: " + (fl.type? fl.type : fl.name.split('.')[1]=="afd"? "Automata": "undefined") + "\n"
-	             	+"size: " + fl.size + " bytes"+"\n")
+	        //alert( "El archivo se cargó de manera correcta \n" 
+	        //    	+"Nombre: " + fl.name + "\n"
+	        //	  	+"type: " + (fl.type? fl.type : fl.name.split('.')[1]=="afd"? "Automata": "undefined") + "\n"
+	        //    	+"size: " + fl.size + " bytes"+"\n")
 	        
 	        document.getElementById('whereIsTheFile').value = fileName;
 	      }
@@ -124,11 +124,14 @@
 			curState=transition(a,m,n,curState,s.charAt(i));
 		}
 		if(f.indexOf(n[curState])!=-1){
-			alert('La cadena ' +s +' es aceptada')
+			
+			var success = "<br><div class='alert alert-success'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>La cadena <strong>"+s+"</strong> es aceptada</div>";
+			document.getElementById("placeAlert").innerHTML = success;
 			return true;
 		} 
 		else{
-			alert('La cadena ' +s +' no es aceptada :(')
+			var danger = "<br><div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>La cadena <strong>"+s+"</strong> no es aceptada</div>";
+			document.getElementById("placeAlert").innerHTML = danger;
 			return false;	
 		} 
 	 }
@@ -155,28 +158,28 @@
 		var f=['2'];
 		var a=[['1','0'],['1','2'],['2','2']];
 		var q0='0';
-		
+		//console.log("Evaluando con el string "+s);
 		//Testing
-		console.log("a: "+a);
-		console.log(ag);
-		console.log(a);
+		//console.log("a: "+a);
+		//console.log(ag);
+		//console.log(a);
 		//porque chingados no son iguales???? Si se ven iguales!!
-		console.log(a==ag);
-		console.log("n: "+n);
-		console.log(n==ng);
-		console.log(n);
-		console.log("m: "+m);
-		console.log(m);
-		console.log(m==mg);
-		console.log("q0: "+q0);
-		console.log(q0);
+		//console.log(a==ag);
+		//console.log("n: "+n);
+		//console.log(n==ng);
+		//console.log(n);
+		//console.log("m: "+m);
+		//console.log(m);
+		//console.log(m==mg);
+		//console.log("q0: "+q0);
+		//console.log(q0);
 		//solo q0 es considerado igual, el unico no arreglo. Deberia de funcionar de todas formas, los valores si son iguales.
-		console.log(q0==q0g)
-		console.log("f: "+f);
-		console.log(f);
-		console.log(f==fg);
+		//console.log(q0==q0g)
+		//console.log("f: "+f);
+		//console.log(f);
+		//console.log(f==fg);
 		//s="010010";
-		console.log(eval(a,n,m,q0,f,s))
+		//console.log(eval(a,n,m,q0,f,s))
 		console.log(eval(ag,ng,mg,q0g,fg,s))
 	}
 
