@@ -51,11 +51,11 @@
 			curState=transition(a,m,n,curState,s.charAt(i));
 		}
 		if(f.indexOf(n[curState])!=-1){
-			alert('Cadena Aceptada :)')
+			alert('La cadena ' +s +' es aceptada')
 			return true;
 		} 
 		else{
-			alert('Cadena no Aceptada :(')
+			alert('La cadena ' +s +' no es aceptada :(')
 			return false;	
 		} 
 	 }
