@@ -22,6 +22,8 @@
 	  var q0g;//initial state
 	  var fg; //final states
 	 
+ 
+
 	 function parse(afd){
 		var lines= afd.split('\n');
 		ag=[];
@@ -55,6 +57,35 @@
 		console.log("f: "+fg);
 		console.log(fg);
 	 }
+	 var fileName;
+	function readSingleFile(evt) {
+	    //Retrieve the first (and only!) File from the FileList object.
+	    var fl = evt.target.files[0];
+
+	    if (fl) {
+	      var r = new FileReader();
+	      r.onload = function(e){ 
+	      var contents = e.target.result;
+	      console.log("Content:\n"+contents);
+
+	      parse(contents);
+	      
+	      //fl.type= "Atomata Finito Determinista";
+	      	console.log(fl.name)
+	      	var fileName = fl.name;
+	        alert( "El archivo se cargó de manera correcta \n" 
+	            	+"Nombre: " + fl.name + "\n"
+	        	  	+"type: " + (fl.type? fl.type : fl.name.split('.')[1]=="afd"? "Automata": "undefined") + "\n"
+	             	+"size: " + fl.size + " bytes"+"\n")
+	        
+	        document.getElementById('whereIsTheFile').value = fileName;
+	      }
+	      r.readAsText(fl);
+	    } 
+	    else { 
+	      alert("Falló la subida del archivo");
+	    }
+  	}
 	 //Expected input: char[] m, char c where m is symbol array and c is one to evaluate
 	 //this function translates symbols from char to int
 	 //returns an int indicating index of char, or -1 if invalid char is given
@@ -152,6 +183,11 @@
 	validateBrowserForFileUpload();
 
 	 
+ 
+
+  document.getElementById('fileinput').addEventListener('change', readSingleFile, false);
+
+
 	 //string a evaluar
 	 //var s="0000001001";
 	 
