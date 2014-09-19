@@ -21,6 +21,7 @@
 	  var mg; //alphabet
 	  var q0g;//initial state
 	  var fg; //final states
+	  var mg1;
 	 
  
 
@@ -30,20 +31,23 @@
 		ng=[];
 		//symbols asigned from first line
 		mg=lines[0].split(',');
+		//for(var i=0;i<mg.length;i++)
+		//mg[i]=parseInt(mg[i]);
 		//initial state, read from 2nd line
 		q0g=lines[1].charAt(0)=='*'? lines[1].charAt(1):lines[1].charAt(0);
 		fg=[];
 		for(var i=1;i<lines.length;i++){
 			//add states, if it has * add it to the final stage array aswell
-			if(lines[i].charAt(0)=='*'){
-				fg.push(parseInt(lines[i].charAt(1)));
-				ng.push(lines[i].charAt(1))
+			var temp=lines[i].split("-");
+			if(temp[0].charAt(0)=='*'){
+				fg.push(parseInt(temp[0].substr(1,temp[0].length)));
+				ng.push(parseInt(temp[0].substr(1,temp[0].length)))
 			}
 			else{
-				ng.push(lines[i].charAt(0));
+				ng.push(temp[0]);
 			}
 			//add line to the matrix
-			ag[i-1]=lines[i].split('-')[1].split('&');
+			if(temp[1])ag[i-1]=temp[1].split('&');
 		}
 		//Testing
 		console.log("a: "+ag);
@@ -71,19 +75,13 @@
 	      parse(contents);
 	      
 	      //fl.type= "Atomata Finito Determinista";
-	      	console.log(fl)
-	      	
-
+	      	console.log(fl.name)
 	      	var fileName = fl.name;
 	        //alert( "El archivo se cargó de manera correcta \n" 
 	        //    	+"Nombre: " + fl.name + "\n"
 	        //	  	+"type: " + (fl.type? fl.type : fl.name.split('.')[1]=="afd"? "Automata": "undefined") + "\n"
-	        //    	+"size: " + fl.size + " bytes"+"\n"+
-	        //    	+ "starts with: " + contents.substr(0, contents.indexOf("\n")))
-
-	        var alfabeto = contents.substr(0, contents.indexOf("\n"));
-	        console.log(alfabeto)
-	        document.getElementById('alfabeto').innerHTML = "<br><div class='alert alert-info'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button><strong>Alfabeto: </strong>"+alfabeto+"</div>";
+	        //    	+"size: " + fl.size + " bytes"+"\n")
+	        
 	        document.getElementById('whereIsTheFile').value = fileName;
 	      }
 	      r.readAsText(fl);
@@ -157,19 +155,42 @@
 	
 	var cadena;
 	 function makeEvaluation(){
+		 //if(mg1.length>0)mg=mg1;
+		mg1=new Array(mg.length);
 		cadena = document.getElementById('stringEvaluar').value;
 		console.log("Evaluating: "+cadena);
-		evaluar(cadena.split(""),0,0)
+		cadena=cadena.split("");
+		for(var i=0;i<mg.length;i++){
+			mg[i]=mg[i].substring(0,1);
+		}
+		for(var i=0;i<cadena.length;i++){
+			
+			if(mg.indexOf(cadena[i].toString())>=0)cadena[i]=mg.indexOf(cadena[i].toString());
+			else if(mg.indexOf(cadena[i]))cadena[i]=mg.indexOf(cadena[i].substring(0,1));
+			//console.log(cadena[i]);
+		}
+		for(var i=0;i<mg.length;i++){
+			mg1[i]=i;
+		}
+		console.log(mg);
+		//console.log(cadena);
+		evaluar(cadena,0,0)
 		
 		//console.log(eval(ag,ng,mg,q0g,fg,s))
+	}
+	function revisacadena(c){
+		var s="";
+		for(var i=0;i<c.length;i++)
+		s+=mg[c[i]];
+		return s;
 	}
 	function evaluar(c,i,e){
 		if(c.length==i){
 			if(fg.lastIndexOf(parseInt(e))>=0){
-				var success = "<br><div class='alert alert-success'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>La cadena <strong>"+c.join("")+"</strong> es aceptada</div>";
+				var success = "<br><div class='alert alert-success'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>La cadena <strong>"+revisacadena(c)+"</strong> es aceptada</div>";
 				document.getElementById("placeAlert").innerHTML = success;
 			}else{
-				var danger = "<br><div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>La cadena <strong>"+c.join("")+"</strong> no es aceptada</div>";
+				var danger = "<br><div class='alert alert-danger'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>La cadena <strong>"+revisacadena(c)+"</strong> no es aceptada</div>";
 				document.getElementById("placeAlert").innerHTML = danger;
 			}
 		}else{
@@ -177,8 +198,8 @@
 		console.log("cadena: "+c.join(""));
 		console.log("elemento:"+c[i])
 		console.log("est-actual:"+e);
-		console.log("est-siguente:"+ag[parseInt(e)][parseInt(c[i])]);
-			evaluar(c,i+1,ag[parseInt(e)][parseInt(c[i])]);
+		console.log("est-siguente:"+ag[parseInt(e)][mg1.indexOf(parseInt(c[i]))]);
+			evaluar(c,i+1,ag[parseInt(e)][parseInt(mg1.indexOf(parseInt(c[i])))]);
 		}
 	}
 	validateBrowserForFileUpload();
@@ -193,4 +214,5 @@
 	 //var s="0000001001";
 	 
 	 //console.log(eval(a,n,m,q0,f,s));
+
 
